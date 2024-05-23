@@ -1,26 +1,6 @@
 import torch 
 import torch.nn as nn
 
-def residualblock(in_channels , out_channels , stride , padding ):
-    block = nn.Sequential(
-        nn.Conv2d(in_channels=in_channels , out_channels=out_channels , kernel_size=(3,3) , padding=padding , stride=stride),
-        nn.LeakyReLU(0.1),
-        nn.BatchNorm2d(out_channels),
-        nn.Conv2d(in_channels=out_channels , out_channels=out_channels , kernel_size=(3,3) , padding=padding , stride=stride),
-        nn.LeakyReLU(0.1),
-        nn.BatchNorm2d(out_channels)
-        )
-    return block
-
-def basicblock(in_channels , out_channels , kernel,  stride , padding ):
-    block = nn.Sequential(
-            nn.Conv2d(in_channels=in_channels , out_channels=out_channels , kernel_size=kernel , padding=stride , stride =padding),
-            nn.LeakyReLU(0.1),
-            nn.MaxPool2d(kernel_size=2 , stride=2),
-            nn.BatchNorm2d(out_channels),
-        )
-    return block
-
 
 class ResNet18(nn.Module):
     def __init__(self , num_classes ):
@@ -30,22 +10,22 @@ class ResNet18(nn.Module):
 
         self.ConvBlock1 = nn.Sequential(
             nn.Conv2d(in_channels=3 , out_channels=64 , kernel_size=(7 , 7) , stride=2 , padding=3),
-            nn.LeakyReLU(),
+            nn.LeakyReLU(0.1),
             nn.MaxPool2d(2,2),
             nn.BatchNorm2d(64),
         )      
                  
-        self.ResBlock1 = residualblock(in_channels=64 , out_channels=64 , stride=1 , padding=1)
-        self.ResBlock2 = residualblock(in_channels=64 , out_channels=64 , stride=1 , padding=1)
-        self.ConvBlock2 = basicblock(in_channels=64 , out_channels=128 , kernel=3 , padding=1 , stride=1)
+        self.ResBlock1 = self._make_residualblock(in_channels=64 , out_channels=64 , stride=1 , padding=1)
+        self.ResBlock2 = self._make_residualblock(in_channels=64 , out_channels=64 , stride=1 , padding=1)
+        self.ConvBlock2 = self._make_basicblock(in_channels=64 , out_channels=128 , kernel=3 , padding=1 , stride=1)
 
-        self.ResBlock3 = residualblock(in_channels=128 , out_channels=128 , stride=1 , padding=1)
-        self.ResBlock4 = residualblock(in_channels=128 , out_channels=128 , stride=1 , padding=1)
-        self.ConvBlock3 = basicblock(in_channels=128 , out_channels=256 , kernel=3 , padding=1 , stride=1)
+        self.ResBlock3 = self._make_residualblock(in_channels=128 , out_channels=128 , stride=1 , padding=1)
+        self.ResBlock4 = self._make_residualblock(in_channels=128 , out_channels=128 , stride=1 , padding=1)
+        self.ConvBlock3 = self._make_basicblock(in_channels=128 , out_channels=256 , kernel=3 , padding=1 , stride=1)
 
-        self.ResBlock5 = residualblock(in_channels=256 , out_channels=256 , stride=1 , padding=1)
-        self.ResBlock6 = residualblock(in_channels=256 , out_channels=256 , stride=1 , padding=1)
-        self.ConvBlock4 = basicblock(in_channels=256 , out_channels=512 , kernel=3 , padding=1 , stride=1)
+        self.ResBlock5 = self._make_residualblock(in_channels=256 , out_channels=256 , stride=1 , padding=1)
+        self.ResBlock6 = self._make_residualblock(in_channels=256 , out_channels=256 , stride=1 , padding=1)
+        self.ConvBlock4 = self._make_basicblock(in_channels=256 , out_channels=512 , kernel=3 , padding=1 , stride=1)
 
         self.avgpool = nn.AvgPool2d(kernel_size=7 , stride=7)
 
@@ -70,5 +50,28 @@ class ResNet18(nn.Module):
         out = self.avgpool(out)
         out = self.FC(out)
         return out
+    
+    def _make_residualblock(self,in_channels , out_channels , stride , padding ):
+        block = nn.Sequential(
+            nn.Conv2d(in_channels=in_channels , out_channels=out_channels , kernel_size=(3,3) , padding=padding , stride=stride),
+            nn.LeakyReLU(0.1),
+            nn.BatchNorm2d(out_channels),
+            nn.Conv2d(in_channels=out_channels , out_channels=out_channels , kernel_size=(3,3) , padding=padding , stride=stride),
+            nn.LeakyReLU(0.1),
+            nn.BatchNorm2d(out_channels)
+            )
+        return block
+
+    def _make_basicblock(self,in_channels , out_channels , kernel,  stride , padding ):
+        block = nn.Sequential(
+                nn.Conv2d(in_channels=in_channels , out_channels=out_channels , kernel_size=kernel , padding=stride , stride =padding),
+                nn.LeakyReLU(0.1),
+                nn.MaxPool2d(kernel_size=2 , stride=2),
+                nn.BatchNorm2d(out_channels),
+            )
+        return block
 
 
+# x = torch.randn([32,3,224,224])
+# model = ResNet18(num_classes=10)
+# print(model(x).shape)
