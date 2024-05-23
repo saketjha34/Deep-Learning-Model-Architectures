@@ -10,9 +10,9 @@ class ResNet18(nn.Module):
 
         self.ConvBlock1 = nn.Sequential(
             nn.Conv2d(in_channels=3 , out_channels=64 , kernel_size=(7 , 7) , stride=2 , padding=3),
+            nn.BatchNorm2d(64),
             nn.LeakyReLU(0.1),
             nn.MaxPool2d(2,2),
-            nn.BatchNorm2d(64),
         )      
                  
         self.ResBlock1 = self._make_residualblock(in_channels=64 , out_channels=64 , stride=1 , padding=1)
@@ -52,20 +52,20 @@ class ResNet18(nn.Module):
     def _make_residualblock(self,in_channels , out_channels , stride , padding ):
         block = nn.Sequential(
             nn.Conv2d(in_channels=in_channels , out_channels=out_channels , kernel_size=(3,3) , padding=padding , stride=stride),
-            nn.LeakyReLU(0.1),
             nn.BatchNorm2d(out_channels),
-            nn.Conv2d(in_channels=out_channels , out_channels=out_channels , kernel_size=(3,3) , padding=padding , stride=stride),
             nn.LeakyReLU(0.1),
-            nn.BatchNorm2d(out_channels)
+            nn.Conv2d(in_channels=out_channels , out_channels=out_channels , kernel_size=(3,3) , padding=padding , stride=stride),
+            nn.BatchNorm2d(out_channels),
+            nn.LeakyReLU(0.1),
             )
         return block
 
     def _make_basicblock(self,in_channels , out_channels , kernel,  stride , padding ):
         block = nn.Sequential(
                 nn.Conv2d(in_channels=in_channels , out_channels=out_channels , kernel_size=kernel , padding=stride , stride =padding),
+                nn.BatchNorm2d(out_channels),
                 nn.LeakyReLU(0.1),
                 nn.MaxPool2d(kernel_size=2 , stride=2),
-                nn.BatchNorm2d(out_channels),
             )
         return block
 
