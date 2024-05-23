@@ -86,6 +86,6 @@ class ResNet34(nn.Module):
         )
         return block
 
-# x = torch.randn([32,3,224,224])
-# model = ResNet34(num_classes=10)
-# print(model(x).shape)
+x = torch.randn([1,3,224,224])
+model = ResNet34(num_classes=10)
+print(model(x).shape)
