@@ -17,15 +17,15 @@ class ResNet18(nn.Module):
                  
         self.ResBlock1 = self._make_residualblock(in_channels=64 , out_channels=64 , stride=1 , padding=1)
         self.ResBlock2 = self._make_residualblock(in_channels=64 , out_channels=64 , stride=1 , padding=1)
+        
         self.ConvBlock2 = self._make_basicblock(in_channels=64 , out_channels=128 , kernel=3 , padding=1 , stride=1)
-
         self.ResBlock3 = self._make_residualblock(in_channels=128 , out_channels=128 , stride=1 , padding=1)
-        self.ResBlock4 = self._make_residualblock(in_channels=128 , out_channels=128 , stride=1 , padding=1)
-        self.ConvBlock3 = self._make_basicblock(in_channels=128 , out_channels=256 , kernel=3 , padding=1 , stride=1)
 
-        self.ResBlock5 = self._make_residualblock(in_channels=256 , out_channels=256 , stride=1 , padding=1)
-        self.ResBlock6 = self._make_residualblock(in_channels=256 , out_channels=256 , stride=1 , padding=1)
+        self.ConvBlock3 = self._make_basicblock(in_channels=128 , out_channels=256 , kernel=3 , padding=1 , stride=1)
+        self.ResBlock4 = self._make_residualblock(in_channels=256 , out_channels=256 , stride=1 , padding=1)
+
         self.ConvBlock4 = self._make_basicblock(in_channels=256 , out_channels=512 , kernel=3 , padding=1 , stride=1)
+        self.ResBlock5 = self._make_residualblock(in_channels=512 , out_channels=512 , stride=1 , padding=1)  
 
         self.avgpool = nn.AvgPool2d(kernel_size=7 , stride=7)
 
@@ -33,7 +33,7 @@ class ResNet18(nn.Module):
             nn.Flatten(),
             nn.Dropout(0.5),
             nn.ReLU(),
-            nn.Linear(in_features=512 , out_features=num_classes),
+            nn.Linear(in_features=512 , out_features=self.num_classes),
         )
 
     def forward(self, x):
@@ -42,11 +42,9 @@ class ResNet18(nn.Module):
         out = self.ResBlock2(out) + out
         out = self.ConvBlock2(out)
         out = self.ResBlock3(out) + out
-        out = self.ResBlock4(out) + out
         out = self.ConvBlock3(out)
-        out = self.ResBlock5(out) + out
-        out = self.ResBlock6(out) + out
         out = self.ConvBlock4(out)
+        out = self.ResBlock5(out) + out
         out = self.avgpool(out)
         out = self.FC(out)
         return out
@@ -72,6 +70,6 @@ class ResNet18(nn.Module):
         return block
 
 
-# x = torch.randn([32,3,224,224])
-# model = ResNet18(num_classes=10)
-# print(model(x).shape)
+x = torch.randn([32,3,224,224])
+model = ResNet18(num_classes=10)
+print(model(x).shape)
