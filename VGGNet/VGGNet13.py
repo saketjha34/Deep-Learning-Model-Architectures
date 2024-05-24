@@ -7,9 +7,10 @@ class VGGNet13(nn.Module):
         super(VGGNet13,self).__init__()
 
         self.ConvBlock1 = self._create_block(in_channels=in_channels , out_channels=64 )
-        self.ConvBlock1 = self._create_block(in_channels=64 , out_channels=64 , pool = True)
+        self.ConvBlock1a = self._create_block(in_channels=64 , out_channels=64 , pool = True)
 
-        self.ConvBlock2 = self._create_block(in_channels=64 , out_channels=128 , pool = True)
+        self.ConvBlock2 = self._create_block(in_channels=64 , out_channels=128 )
+        self.ConvBlock2a = self._create_block(in_channels=128 , out_channels=128 , pool = True)
 
         self.ConvBlock3 = self._create_block(in_channels=128 , out_channels=256)
         self.ConvBlock4 = self._create_block(in_channels=256 , out_channels=256 , pool=True)
@@ -34,7 +35,9 @@ class VGGNet13(nn.Module):
 
     def forward(self , x):
         x = self.ConvBlock1(x)
+        x = self.ConvBlock1a(x)
         x = self.ConvBlock2(x)
+        x = self.ConvBlock2a(x)
         x = self.ConvBlock3(x)
         x = self.ConvBlock4(x)
         x = self.ConvBlock5(x)
@@ -58,7 +61,7 @@ class VGGNet13(nn.Module):
     
 
 
-x = torch.randn([32,3,224,224])
-model = VGGNet11()
+x = torch.randn([1,3,224,224])
+model = VGGNet13()
 print(model(x).shape)
 
