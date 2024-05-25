@@ -69,7 +69,3 @@ class ResNet18(nn.Module):
             )
 
 
-
-x = torch.randn([32,3,224,224])
-model = ResNet18(num_classes=10)
-print(model(x).shape)
