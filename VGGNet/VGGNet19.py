@@ -30,10 +30,10 @@ class VGGNet19(nn.Module):
         self.FC = nn.Sequential(
             nn.Flatten(),
             nn.Linear(in_features=512*7*7 , out_features=4096),
-            nn.LeakyReLU(0.1),
+            nn.LeakyReLU(0.2, inplace=True ),
             nn.Dropout(0.5),
             nn.Linear(4096 , 4096),
-            nn.LeakyReLU(0.1),
+            nn.LeakyReLU(0.2, inplace=True ),
             nn.Dropout(0.5),
             nn.Linear(4096 , num_classes)
 
@@ -62,9 +62,9 @@ class VGGNet19(nn.Module):
     def _create_block(self,in_channels , out_channels , pool = False):
         layer = []
         block = nn.Sequential(
-            nn.Conv2d(in_channels=in_channels , out_channels=out_channels , kernel_size=(3,3) ,stride=1 , padding=1),
+            nn.Conv2d(in_channels=in_channels , out_channels=out_channels , kernel_size=(3,3) ,stride=1 , padding=1 , bias = False),
             nn.BatchNorm2d(out_channels),
-            nn.LeakyReLU(0.1),
+            nn.LeakyReLU(0.2, inplace=True ),
         )
         layer.append(block)
 
