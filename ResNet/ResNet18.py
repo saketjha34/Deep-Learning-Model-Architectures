@@ -9,9 +9,9 @@ class ResNet18(nn.Module):
         self.num_classes = num_classes
 
         self.ConvBlock1 = nn.Sequential(
-            nn.Conv2d(in_channels=3 , out_channels=64 , kernel_size=(7 , 7) , stride=2 , padding=3),
+            nn.Conv2d(in_channels=3 , out_channels=64 , kernel_size=(7 , 7) , stride=2 , padding=3 , bias=False),
             nn.BatchNorm2d(64),
-            nn.LeakyReLU(0.1),
+            nn.LeakyReLU(0.2 , inplace=True),
             nn.MaxPool2d(2,2),
         )      
                  
@@ -32,7 +32,7 @@ class ResNet18(nn.Module):
         self.FC = nn.Sequential(
             nn.Flatten(),
             nn.Dropout(0.5),
-            nn.ReLU(),
+            nn.ReLU( inplace=True),
             nn.Linear(in_features=512 , out_features=self.num_classes),
         )
 
@@ -51,20 +51,20 @@ class ResNet18(nn.Module):
     
     def _create_residualblock(self,in_channels , out_channels , stride , padding ):
         return nn.Sequential(
-            nn.Conv2d(in_channels=in_channels , out_channels=out_channels , kernel_size=(3,3) , padding=padding , stride=stride),
+            nn.Conv2d(in_channels=in_channels , out_channels=out_channels , kernel_size=(3,3) , padding=padding , stride=stride , bias = False),
             nn.BatchNorm2d(out_channels),
-            nn.LeakyReLU(0.1),
-            nn.Conv2d(in_channels=out_channels , out_channels=out_channels , kernel_size=(3,3) , padding=padding , stride=stride),
+            nn.LeakyReLU(0.2 , inplace=True),
+            nn.Conv2d(in_channels=out_channels , out_channels=out_channels , kernel_size=(3,3) , padding=padding , stride=stride , bias= False),
             nn.BatchNorm2d(out_channels),
-            nn.LeakyReLU(0.1),
+            nn.LeakyReLU(0.2 , inplace=True),
             )
         
 
     def _create_basicblock(self,in_channels , out_channels , kernel,  stride , padding ):
         return nn.Sequential(
-                nn.Conv2d(in_channels=in_channels , out_channels=out_channels , kernel_size=kernel , padding=stride , stride =padding),
+                nn.Conv2d(in_channels=in_channels , out_channels=out_channels , kernel_size=kernel , padding=stride , stride =padding , bias =False),
                 nn.BatchNorm2d(out_channels),
-                nn.LeakyReLU(0.1),
+                nn.LeakyReLU(0.2 , inplace=True),
                 nn.MaxPool2d(kernel_size=2 , stride=2),
             )
 

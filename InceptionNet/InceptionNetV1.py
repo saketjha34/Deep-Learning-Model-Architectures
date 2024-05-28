@@ -8,34 +8,34 @@ class InceptionBlock(nn.Module):
         super(InceptionBlock,self).__init__()
 
         self.branch1 = nn.Sequential(
-            nn.Conv2d(in_channels=in_channels , out_channels=num_filters1x1 , kernel_size=1 ,padding=0 , stride=1),
+            nn.Conv2d(in_channels=in_channels , out_channels=num_filters1x1 , kernel_size=1 ,padding=0 , stride=1 ,bias=False),
             nn.BatchNorm2d(num_filters1x1),
-            nn.ReLU(),
+            nn.LeakyReLU(inplace=True),
         )
 
         self.branch2 = nn.Sequential(
-            nn.Conv2d(in_channels=in_channels , out_channels=num_filters3x3_reduce, kernel_size=1 ,padding=0 , stride=1),
+            nn.Conv2d(in_channels=in_channels , out_channels=num_filters3x3_reduce, kernel_size=1 ,padding=0 , stride=1,bias=False),
             nn.BatchNorm2d(num_filters3x3_reduce),
-            nn.ReLU(),
-            nn.Conv2d(in_channels=num_filters3x3_reduce , out_channels=num_filters3x3 , kernel_size=3 , padding=1 , stride=1),
+            nn.LeakyReLU(inplace=True),
+            nn.Conv2d(in_channels=num_filters3x3_reduce , out_channels=num_filters3x3 , kernel_size=3 , padding=1 , stride=1,bias=False),
             nn.BatchNorm2d(num_filters3x3),
-            nn.ReLU(),
+            nn.LeakyReLU(inplace=True),
         )
 
         self.branch3 = nn.Sequential(
-            nn.Conv2d(in_channels=in_channels , out_channels=num_filters5x5_reduce, kernel_size=1 ,padding=0 , stride=1),
+            nn.Conv2d(in_channels=in_channels , out_channels=num_filters5x5_reduce, kernel_size=1 ,padding=0 , stride=1 ,bias=False),
             nn.BatchNorm2d(num_filters5x5_reduce),
-            nn.ReLU(),
-            nn.Conv2d(in_channels=num_filters5x5_reduce , out_channels=num_filters5x5 , kernel_size=5 , padding=2 , stride=1),
+            nn.LeakyReLU(inplace=True),
+            nn.Conv2d(in_channels=num_filters5x5_reduce , out_channels=num_filters5x5 , kernel_size=5 , padding=2 , stride=1,bias=False),
             nn.BatchNorm2d(num_filters5x5),
-            nn.ReLU(),
+            nn.LeakyReLU(inplace=True),
         )
 
         self.branch4 = nn.Sequential(
             nn.MaxPool2d(kernel_size=3 ,stride=1 , padding=1),
-            nn.Conv2d(in_channels=in_channels , out_channels=pooling , kernel_size=1),
+            nn.Conv2d(in_channels=in_channels , out_channels=pooling , kernel_size=1,bias=False),
             nn.BatchNorm2d(pooling),
-            nn.ReLU(),
+            nn.LeakyReLU(inplace=True),
         )
 
     def forward(self, x):
@@ -46,16 +46,16 @@ class InceptionNetV1(nn.Module):
         super(InceptionNetV1,self).__init__()
         
         self.ConvBlock1 = nn.Sequential(
-            nn.Conv2d(in_channels=in_channels , out_channels=64 , kernel_size=7 , stride=2 , padding=3),
+            nn.Conv2d(in_channels=in_channels , out_channels=64 , kernel_size=7 , stride=2 , padding=3,bias=False),
             nn.BatchNorm2d(64),
-            nn.ReLU(),
+            nn.LeakyReLU(inplace=True),
             nn.MaxPool2d(kernel_size=3 , stride=2,padding=1)
         )
 
         self.ConvBlock2 = nn.Sequential(
-            nn.Conv2d(in_channels=64 , out_channels=192 , kernel_size=3 , stride=1 , padding=1),
+            nn.Conv2d(in_channels=64 , out_channels=192 , kernel_size=3 , stride=1 , padding=1,bias=False),
             nn.BatchNorm2d(192),
-            nn.ReLU(),
+            nn.LeakyReLU(inplace=True),
             nn.MaxPool2d(kernel_size=3 , stride=2,padding=1)
         )
 
@@ -78,7 +78,7 @@ class InceptionNetV1(nn.Module):
         self.FC= nn.Sequential(
             nn.Flatten(),
             nn.Dropout(0.4),
-            nn.ReLU(),
+            nn.LeakyReLU(inplace=True),
             nn.Linear(1024 , num_classes)
         )
 
