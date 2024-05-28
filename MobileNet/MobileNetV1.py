@@ -6,7 +6,7 @@ class MobileNetV1(nn.Module):
         super(MobileNetV1,self).__init__()
 
         self.ConvLayer1 = nn.Sequential(
-            nn.Conv2d(in_channels=in_channels , out_channels=32 , kernel_size=3 , stride=2 , padding=1),
+            nn.Conv2d(in_channels=in_channels , out_channels=32 , kernel_size=3 , stride=2 , padding=1 , bias=False),
             nn.BatchNorm2d(32),
             nn.LeakyReLU(0.2 , inplace=True)
         )
@@ -62,11 +62,12 @@ class MobileNetV1(nn.Module):
 
     def _create_depthwise_block(self, in_channels ,out_channels , stride):
         return nn.Sequential(
-            nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=(3,3),padding=1,stride = stride),
+            
+            nn.Conv2d(in_channels=in_channels,out_channels=in_channels,kernel_size=(3,3),padding=1,stride = stride, bias=False),
             nn.BatchNorm2d(in_channels),
             nn.LeakyReLU(0.2 , inplace=True),
 
-            nn.Conv2d(in_channels=in_channels,out_channels=out_channels,kernel_size=(1,1),padding=0,stride =1),
+            nn.Conv2d(in_channels=in_channels,out_channels=out_channels,kernel_size=(1,1),padding=0,stride =1, bias=False),
             nn.BatchNorm2d(out_channels),
             nn.LeakyReLU(0.2 , inplace=True),
         )
