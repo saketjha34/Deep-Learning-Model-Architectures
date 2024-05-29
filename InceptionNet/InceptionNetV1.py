@@ -100,6 +100,6 @@ class InceptionNetV1(nn.Module):
         x = self.FC(x)
         return x
 
-x = torch.randn([1,3,224,224])
+x = torch.randn([10,3,224,224])
 model = InceptionNetV1()
 print(model(x).shape)
