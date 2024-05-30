@@ -73,5 +73,3 @@ If you have any questions or suggestions, please open an issue or contact me dir
 
 Happy coding!
 ```
-
-Feel free to adjust the sections or add more details specific to your project as needed!
