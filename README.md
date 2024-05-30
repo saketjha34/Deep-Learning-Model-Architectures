@@ -1,4 +1,3 @@
-Here's a customized `README.md` for your GitHub repository:
 
 ```markdown
 # Deep Learning Model Architectures
