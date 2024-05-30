@@ -1,5 +1,3 @@
-
-```markdown
 # Deep Learning Model Architectures
 
 Welcome to the Deep Learning Model Architectures repository! This repository contains implementations of various deep learning model architectures. Each model is implemented in Python and organized into its own directory for ease of use and understanding.
@@ -22,11 +20,10 @@ Deep learning has numerous applications, and understanding different model archi
 
 To get started, clone the repository and install the required dependencies:
 
-```bash
 git clone https://github.com/saketjha34/Deep-Learning-Model-Architectures.git
 cd Deep-Learning-Model-Architectures
 pip install -r requirements.txt
-```
+
 
 ## Usage
 
@@ -72,4 +69,3 @@ If you have any questions or suggestions, please open an issue or contact me dir
 ---
 
 Happy coding!
-```
