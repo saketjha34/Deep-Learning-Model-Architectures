@@ -70,15 +70,15 @@ The trained models are saved as `.pth` files in the `pytorch saved models` direc
 ```python
 import torch
 from ALexNet.AlexNet import AlexNet224
-from InceptionNet.Inceptionnetv1 import Inceptionnetv1
+from InceptionNet.InceptionNetv1 import InceptionNetv1
 
 # Load AlexNet model
 alexnet = AlexNet224(in_channels = 3 , num_classes = 10)
 alexnet.load_state_dict(torch.load('own trained model/load_your_own_trained_model.pth'))
 
 # Load ResNet18 model
-inceptionnet = Inceptionnetv1(in_channels = 3 , num_classes = 10)
-resnet18.load_state_dict(torch.load(torch.load('own trained model/load_your_own_trained_model.pth'))
+inceptionnet = InceptionNetv1(in_channels = 3 , num_classes = 10)
+inceptionnet.load_state_dict(torch.load(torch.load('own trained model/load_your_own_trained_model.pth'))
 ```
 
 ## References
@@ -110,7 +110,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-If you have any questions or suggestions, please open an issue or contact me directly at saketjha34@gmail.com.
+If you have any questions or suggestions, please open an issue or contact me directly at saketjha0324@gmail.com.
 
 ---
 
