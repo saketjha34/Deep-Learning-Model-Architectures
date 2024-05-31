@@ -8,6 +8,9 @@ Welcome to the Deep Learning Model Architectures repository! This repository con
 - [Installation](#installation)
 - [Usage](#usage)
 - [Model Architectures](#model-architectures)
+- [Requirements](#requirements)
+- [Deployment](#deployment)
+- [References](#references)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
@@ -31,7 +34,7 @@ Each model has its own directory containing the implementation and a sample scri
 
 ```bash
 cd AlexNet
-python example.py
+python AlexNet.py
 ```
 
 You can modify the scripts and model parameters as needed for your specific use case.
@@ -45,6 +48,49 @@ This repository includes the following model architectures:
 - [MobileNet](MobileNet/): Implementation of MobileNet, a lightweight deep learning model for mobile and embedded vision applications.
 - [ResNet](ResNet/): Implementation of ResNet, known for its use of residual connections to ease the training of deep networks.
 - [VGGNet](VGGNet/): Implementation of VGGNet, a deep convolutional network known for its simplicity and depth.
+
+
+## Requirements
+
+Make sure you have the following dependencies installed:
+- Python 3.11.4
+- NumPy
+- PyTorch 
+- Other dependencies as listed in `requirements.txt`
+
+You can install the required packages using:
+```bash
+pip install -r requirements.txt
+```
+
+## Deployment
+
+The trained models are saved as `.pth` files in the `pytorch saved models` directory. These files can be used for further deployment purposes. You can load the models in PyTorch using the following code:
+
+```python
+import torch
+from ALexNet.AlexNet import AlexNet224
+from InceptionNet.Inceptionnetv1 import Inceptionnetv1
+
+# Load AlexNet model
+alexnet = AlexNet224(in_channels = 3 , num_classes = 10)
+alexnet.load_state_dict(torch.load('own trained model/load_your_own_trained_model.pth'))
+
+# Load ResNet18 model
+inceptionnet = Inceptionnetv1(in_channels = 3 , num_classes = 10)
+resnet18.load_state_dict(torch.load(torch.load('own trained model/load_your_own_trained_model.pth'))
+```
+
+## References
+
+If you use any part of this repository in your research, please cite the original papers:
+
+- **AlexNet**: Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. In Advances in neural information processing systems (pp. 1097-1105). [Paper](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf)
+- **VGGNet**: Simonyan, K., & Zisserman, A. (2014). Very deep convolutional networks for large-scale image recognition. arXiv preprint arXiv:1409.1556. [Paper](https://arxiv.org/abs/1409.1556)
+- **ResNet**: He, K., Zhang, X., Ren, S., & Sun, J. (2015). Deep residual learning for image recognition. arXiv preprint arXiv:1512.03385. [Paper](https://arxiv.org/abs/1512.03385)
+- **MobileNet**: Howard, A. G., Zhu, M., Chen, B., Kalenichenko, D., Wang, W., Weyand, T., ... & Adam, H. (2017). MobileNets: Efficient convolutional neural networks for mobile vision applications. arXiv preprint arXiv:1704.04861. [Paper](https://arxiv.org/abs/1704.04861)
+- **InceptionNet**: Szegedy, C., Liu, W., Jia, Y., Sermanet, P., Reed, S., Anguelov, D., ... & Rabinovich, A. (2014). Going deeper with convolutions. arXiv preprint arXiv:1409.4842. [Paper](https://arxiv.org/abs/1409.4842)
+
 
 ## Contributing
 
