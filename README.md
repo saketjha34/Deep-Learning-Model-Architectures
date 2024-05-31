@@ -76,7 +76,7 @@ from InceptionNet.InceptionNetv1 import InceptionNetv1
 alexnet = AlexNet224(in_channels = 3 , num_classes = 10)
 alexnet.load_state_dict(torch.load('own trained model/load_your_own_trained_model.pth'))
 
-# Load ResNet18 model
+# Load InceptionNetV1 model
 inceptionnet = InceptionNetv1(in_channels = 3 , num_classes = 10)
 inceptionnet.load_state_dict(torch.load(torch.load('own trained model/load_your_own_trained_model.pth'))
 ```
