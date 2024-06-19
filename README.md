@@ -48,7 +48,8 @@ This repository includes the following model architectures:
 - [MobileNet](MobileNet/): Implementation of MobileNet, a lightweight deep learning model for mobile and embedded vision applications.
 - [ResNet](ResNet/): Implementation of ResNet, known for its use of residual connections to ease the training of deep networks.
 - [VGGNet](VGGNet/): Implementation of VGGNet, a deep convolutional network known for its simplicity and depth.
-
+- [UNET](UNET/): A convolutional network architecture designed for biomedical image segmentation with a U-shaped structure enabling precise localization.
+- [DCGAN](DCGAN/): A Deep Convolutional Generative Adversarial Network used for generating realistic images through adversarial training between a generator and a discriminator.
 
 ## Requirements
 
@@ -90,6 +91,8 @@ If you use any part of this repository in your research, please cite the origina
 - **ResNet**: He, K., Zhang, X., Ren, S., & Sun, J. (2015). Deep residual learning for image recognition. arXiv preprint arXiv:1512.03385. [Paper](https://arxiv.org/abs/1512.03385)
 - **MobileNet**: Howard, A. G., Zhu, M., Chen, B., Kalenichenko, D., Wang, W., Weyand, T., ... & Adam, H. (2017). MobileNets: Efficient convolutional neural networks for mobile vision applications. arXiv preprint arXiv:1704.04861. [Paper](https://arxiv.org/abs/1704.04861)
 - **InceptionNet**: Szegedy, C., Liu, W., Jia, Y., Sermanet, P., Reed, S., Anguelov, D., ... & Rabinovich, A. (2014). Going deeper with convolutions. arXiv preprint arXiv:1409.4842. [Paper](https://arxiv.org/abs/1409.4842)
+- **UNet**: A convolutional network architecture designed for biomedical image segmentation with a U-shaped structure enabling precise localization. [Reference: "U-Net: Convolutional Networks for Biomedical Image Segmentation" by Olaf Ronneberger, Philipp Fischer, and Thomas Brox (2015)](https://arxiv.org/abs/1505.04597).
+- **DCGAN**: A Deep Convolutional Generative Adversarial Network used for generating realistic images through adversarial training between a generator and a discriminator. [Reference: "Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks" by Alec Radford, Luke Metz, and Soumith Chintala (2015)](https://arxiv.org/abs/1511.06434).
 
 
 ## Contributing
