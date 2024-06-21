@@ -72,6 +72,6 @@ class MobileNetV1(nn.Module):
             nn.LeakyReLU(0.2 , inplace=True),
         )
 
-x = torch.randn([1,3,224,224])
-model = MobileNetV1()
-print(model(x).shape)
+# x = torch.randn([1,3,224,224])
+# model = MobileNetV1()
+# print(model(x).shape)
