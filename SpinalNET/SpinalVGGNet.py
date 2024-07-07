@@ -3,9 +3,9 @@ import torch.nn as nn
 from torchvision import  models
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-class SpinalResNet(nn.Module):
+class SpinalVGGNet(nn.Module):
     def __init__(self, half_in_size, layer_width, num_classes):
-        super(SpinalResNet, self).__init__()
+        super(SpinalVGGNet, self).__init__()
         self.half_in_size = half_in_size
         
         self.SpinalLayer1 = nn.Sequential(
@@ -54,7 +54,7 @@ def test():
     half_in_size = round(num_features/2)
     layer_width = 512
     num_classes = 1000
-    model_features.classifier = SpinalResNet(half_in_size, layer_width, num_classes).to(device)
+    model_features.classifier = SpinalVGGNet(half_in_size, layer_width, num_classes).to(device)
     model = model_features.to(device)
     x = torch.randn([10,3,224,224]).to(device)
     print(model(x).shape)
