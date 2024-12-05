@@ -3,7 +3,7 @@ import torch.nn as nn
 
 class MobileNetV1(nn.Module):
     def __init__(self, in_channels =3 , num_classes = 10):
-        super(MobileNetV1,self).__init__()
+        super(MobileNetV1,self).__init__()  
 
         self.ConvLayer1 = nn.Sequential(
             nn.Conv2d(in_channels=in_channels , out_channels=32 , kernel_size=3 , stride=2 , padding=1 , bias=False),
