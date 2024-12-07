@@ -45,7 +45,3 @@ with torch.no_grad():
 predictions = F.softmax(logits, dim=-1)
 print("Predictions shape:", predictions.shape)  # Should be (batch_size, tgt_seq_len, tgt_vocab_size)
 print("Sample predictions (first element):", predictions[0])
-
-
-
-
