@@ -1,3 +1,36 @@
+"""
+YOLOv1 Loss Module
+
+This module implements the loss function for the YOLOv1 model, which combines multiple 
+loss components to optimize bounding box predictions, object confidence, and class probabilities.
+
+Parameters:
+    S (int): The grid size of the input image (e.g., 7 for a 7x7 grid).
+    B (int): Number of bounding boxes per grid cell.
+    C (int): Number of classes for object classification.
+    lambda_coord (float): Weight for the bounding box coordinate loss.
+    lambda_noobj (float): Weight for the no-object confidence loss.
+
+Attributes:
+    mse (nn.MSELoss): Mean Squared Error loss for computing individual loss components.
+    S (int): Grid size.
+    B (int): Number of bounding boxes per grid cell.
+    C (int): Number of classes.
+    lambda_coord (float): Weight for the bounding box coordinate loss.
+    lambda_noobj (float): Weight for the no-object confidence loss.
+
+Methods:
+    forward(predictions, target):
+        Computes the YOLOv1 loss given the predictions and ground truth targets.
+
+        Parameters:
+            predictions (torch.Tensor): Tensor of shape (BATCH_SIZE, S*S*(C+B*5)) containing predictions.
+            target (torch.Tensor): Tensor of the same shape as predictions containing ground truth labels.
+
+        Returns:
+            torch.Tensor: The computed YOLOv1 loss.
+"""
+
 import torch
 import torch.nn as nn
 
